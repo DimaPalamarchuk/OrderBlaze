@@ -6,37 +6,16 @@
     <div class="row">
         @foreach(var prod in ProductList)
         {
-            <div class="bg-light border col-6">
-                <h4 class="text-secondary">Product - @prod.Id</h4>
-                Name - @prod.Name <br />
-                Show Properties: 
-                <input type="checkbox" @bind="@prod.IsActive"/>
+            <_IndividualProduct Product="prod">
 
-                @if (prod.IsActive)
-                {
-                    @foreach(var prodProp in prod.ProductProperties)
-                    {
-                        <p>@prodProp.Key - @prodProp.Value</p>
-                    }
-                }
-                <br />
-                <_DeleteButtonComponent ProductId="@prod.Id">
-
-                </_DeleteButtonComponent>
-            </div>
+            </_IndividualProduct>
         }
-    </div>
-    <div class="row">
-        <input type="button" class="btn btn-success" style="width:100px" value="Counter" @onclick="()=>IncrementCount(5)" />
-        Counter: @Count
     </div>
 </div>
 
 @code {
 
     List<Product> ProductList = new();
-    public int Count;
-
 
     protected override void OnInitialized()
     {
@@ -56,7 +35,7 @@
 
         ProductList.Add(new()
             {
-                Id = 1,
+                Id = 2,
                 Name = "Blossom Lily",
                 IsActive = true,
                 Price = 10.59,
@@ -67,10 +46,5 @@
                 new Product_Prop{Id=3, Key="Flavor", Value="Lily"}
             }
             });
-    }
-
-    private void IncrementCount(int counter)
-    {
-        Count+=counter;
     }
 }
