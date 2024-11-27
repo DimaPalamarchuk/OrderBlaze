@@ -1,12 +1,12 @@
 ﻿@page "/orderBlaze/demoProduct"
 
 <h2 class="text-primary">Demo Product</h2>
-
+<p>Favorite Count: @FavoriteCount</p>
 <div class="border p2 mt-2">
     <div class="row">
         @foreach(var prod in ProductList)
         {
-            <_IndividualProduct Product="prod">
+            <_IndividualProduct Product="prod" OnFavoriteUpdate="FavoriteCountChange">
 
             </_IndividualProduct>
         }
@@ -16,7 +16,7 @@
 @code {
 
     List<Product> ProductList = new();
-
+    public int FavoriteCount { get; set; } = 0;
     protected override void OnInitialized()
     {
         ProductList.Add(new()
@@ -46,5 +46,17 @@
                 new Product_Prop{Id=3, Key="Flavor", Value="Lily"}
             }
             });
+    }
+
+    protected void FavoriteCountChange(bool isSelected)
+    {
+        if (isSelected)
+        {
+            FavoriteCount++;
+        }
+        else
+        {
+            FavoriteCount--;
+        }
     }
 }
