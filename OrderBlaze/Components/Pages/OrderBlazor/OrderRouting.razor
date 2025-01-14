@@ -1,0 +1,52 @@
+﻿@page "/orderRouting"
+@* @page "/orderRouting/{Param1:int}/{Param2}"
+@page "/orderRouting/{Param1:int}" *@
+@page "/OrderBlazor/orderRouting"
+@page "/orderRouting/OrderBlazor"
+@page "/OrderBlazor/catch-all/{*PageParameters}"
+
+@inject NavigationManager _NavigationManager
+
+<h3>Routing</h3>
+
+<p>Param1: @Param1</p>
+<p>Param2: @Param2</p>
+<p>Param3: @Param3</p>
+<p>Page Parameters: @PageParameters</p>
+
+@*<a href="orderRouting?Param2=Order&Param3=Routing" class="btn btn-primary">Navigate to query parameter</a>*@
+<button class="btn btn-primary" @onclick="NavigateToQueryParam">Navigate to query parameter</button>
+<button class="btn btn-success" @onclick="LoadParameter">Load parameter</button>
+<br/>
+
+
+
+<div class="bg-info" style="height:1000px">
+</div>
+
+<h2 id="targetElement">Main title</h2>
+
+@code {
+    [Parameter]
+    public int Param1 { get; set; }
+    [SupplyParameterFromQuery(Name ="Param2")]
+    public string Param2 { get; set; } = "";
+    [SupplyParameterFromQuery]
+    public string Param3 { get; set; } = "";
+    [Parameter]
+    public string PageParameters { get; set; } = "";
+
+    private void LoadParameter()
+    {
+        var uri = new Uri(_NavigationManager.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+        Param2 = query["Param2"];
+        Param3 = query["Param3"];
+       // _NavigationManager.Refresh(forceReload:true);
+    }
+
+    private void NavigateToQueryParam()
+    {
+        _NavigationManager.NavigateTo("orderRouting?Param2=Order&Param3=Routing");
+    }
+}

@@ -6,7 +6,6 @@
     Name - @Product.Name <br />
     Show Properties:
     <input type="checkbox" @bind="@Product.IsActive" />
-
     @if (Product.IsActive)
     {
         @foreach (var prodProp in Product.ProductProperties)
