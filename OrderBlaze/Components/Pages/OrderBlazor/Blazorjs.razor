@@ -18,6 +18,14 @@
     }
 </div>
 
+
+<!-- This code requires `WWWROOT/js/Common.js`. -->
+<!-- This script also requires Toastr from https://github.com/CodeSeven/toastr. -->
+<div class="row">
+    <button class="btn btn-success" @onclick="ToastrSuccess">Toastr success</button>
+    <button class="btn btn-danger" @onclick="ToastrError">Toastr error</button>
+</div>
+
 @code {
     private string ConfirmMessage = "Are you sure you want to click here?";
 
@@ -26,5 +34,16 @@
     private async Task TestConfirmBox()
     {
         ConfirmResult = await _JSRuntime.InvokeAsync<bool>("confirm", ConfirmMessage);
+    }
+
+    private async Task ToastrSuccess()
+    {
+        //await _JSRuntime.InvokeVoidAsync("showToastr", "success", "Success Notification"); // showToastr from wwwroot/js/Common.js
+        await _JSRuntime.ToastrSuccess("Success Notification"); // From the Helper -> IJSRuntimeExtensions.cs
+    }
+    private async Task ToastrError()
+    {
+        //await _JSRuntime.InvokeVoidAsync("showToastr", "error", "Error Notification");
+        await _JSRuntime.ToastrError("Error Notification"); // From the Helper -> IJSRuntimeExtensions.cs
     }
 }
