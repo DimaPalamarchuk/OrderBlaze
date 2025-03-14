@@ -22,9 +22,16 @@
 <!-- This code requires `WWWROOT/js/Common.js`. -->
 <!-- This script also requires Toastr from https://github.com/CodeSeven/toastr. -->
 <div class="row">
-    <button class="btn btn-success" @onclick="ToastrSuccess">Toastr success</button>
-    <button class="btn btn-danger" @onclick="ToastrError">Toastr error</button>
+    <button class="btn btn-success m-2" style="width:200px" @onclick="ToastrSuccess">Toastr success</button>
+    <button class="btn btn-danger m-2" style="width:200px" @onclick="ToastrError">Toastr error</button>
 </div>
+
+<div class="row">
+    <button class="btn btn-success m-2" style="width:200px" @onclick="SweatalertSuccess">Sweatalert success</button>
+    <button class="btn btn-danger m-2" style="width:200px" @onclick="SweetalertError">Sweatalert error</button>
+</div>
+
+
 
 @code {
     private string ConfirmMessage = "Are you sure you want to click here?";
@@ -45,5 +52,14 @@
     {
         //await _JSRuntime.InvokeVoidAsync("showToastr", "error", "Error Notification");
         await _JSRuntime.ToastrError("Error Notification"); // From the Helper -> IJSRuntimeExtensions.cs
+    }
+    
+    private async Task SweatalertSuccess()
+    {
+        await _JSRuntime.SweatalertSuccess("Success Notification"); // From the Helper -> IJSRuntimeExtensions.cs
+    }
+    private async Task SweetalertError()
+    {
+        await _JSRuntime.SweetalertError("Error Notification"); // From the Helper -> IJSRuntimeExtensions.cs
     }
 }
